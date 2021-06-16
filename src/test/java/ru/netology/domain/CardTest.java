@@ -33,7 +33,7 @@ public class CardTest {
         $$("button").get(1).click();
         $(withText("Встреча успешно"))
                 .shouldBe(Condition.visible, Duration.ofSeconds(15));
-        $(withText(dateFirst))
+        $("[data-test-id='success-notification']")
                 .shouldBe(Condition.visible);
         $("[data-test-id='date'] input")
                 .sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
@@ -44,7 +44,7 @@ public class CardTest {
                 .shouldBe(Condition.visible, Duration.ofSeconds(15));
         $(withText("Перепланировать")).click();
         $(withText("Встреча успешно ")).shouldBe(Condition.visible);
-        $(withText(dateSecond)).shouldBe(Condition.visible);
+        $("[data-test-id='success-notification']").shouldBe(Condition.visible).shouldHave(Condition.exactText("Успешно"));
 
     }
 
