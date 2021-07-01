@@ -22,7 +22,7 @@ public class CardTest {
 
     @Test
     void shouldAcceptInformation() {
-        $("[data-test-id=city] input").setValue(DataGenerator.getNewCity());
+        $("[data-test-id=city] input").setValue(DataGenerator.rand());
         $("[data-test-id='date'] input")
                 .sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         String dateFirst = DataGenerator.getNewDate(3);
