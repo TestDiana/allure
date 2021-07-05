@@ -9,6 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
 
 public class CardTest {
 
@@ -31,8 +32,9 @@ public class CardTest {
         $("[data-test-id='phone'] input").setValue(DataGenerator.getNewPhoneNumber());
         $("[data-test-id=agreement]").click();
         $$("button").get(1).click();
-        $(withText("Встреча успешно"))
-                .shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $("[class=notification__content]")
+                .shouldHave(Condition.attribute(dateFirst))
+                .shouldHave(Condition.exactText("Успешно"));
         $("[data-test-id='success-notification']")
                 .shouldBe(Condition.visible);
         $("[data-test-id='date'] input")
