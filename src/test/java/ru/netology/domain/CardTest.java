@@ -32,11 +32,10 @@ public class CardTest {
         $("[data-test-id='phone'] input").setValue(DataGenerator.getNewPhoneNumber());
         $("[data-test-id=agreement]").click();
         $$("button").get(1).click();
-        $("[class=notification__content]")
-                .shouldHave(Condition.attribute(dateFirst))
-                .shouldHave(Condition.exactText("Успешно"));
-        $("[data-test-id='success-notification']")
-                .shouldBe(Condition.visible);
+        $("[data-test-id='success-notification'] .notification__title")
+                .shouldBe(Condition.visible).shouldHave(Condition.exactText("Успешно!"));
+        $("[data-test-id='success-notification'] .notification__content")
+                .shouldHave(Condition.exactText("Встреча успешно запланирована на " + dateFirst));
         $("[data-test-id='date'] input")
                 .sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         String dateSecond = DataGenerator.getNewDate(5);
@@ -45,8 +44,12 @@ public class CardTest {
         $(withText("У вас уже запланирована встреча на другую дату."))
                 .shouldBe(Condition.visible, Duration.ofSeconds(15));
         $(withText("Перепланировать")).click();
-        $(withText("Встреча успешно ")).shouldBe(Condition.visible);
-        $("[data-test-id='success-notification']").shouldBe(Condition.visible).shouldHave(Condition.exactText("Успешно"));
+        $("[data-test-id='success-notification'] .notification__title")
+                .shouldBe(Condition.visible).shouldHave(Condition.exactText("Успешно!"));
+        $("[data-test-id='success-notification'] .notification__content")
+                .shouldBe(Condition.visible)
+                .shouldHave(Condition.exactText("Встреча успешно запланирована на " + dateSecond));
+
 
     }
 
