@@ -1,31 +1,37 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.8.1'
 }
 
 group 'ru.netology'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
-repositories {
-    mavenCentral()
-}
+allure {
+    autoconfigure = true version = '2.13.3'
+    useJUnit5 {version ='2.13.3'}}
 
-dependencies {
-    implementation 'junit:junit:4.12'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
-    testImplementation 'com.codeborne:selenide:5.19.0'
-    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
-    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.3.1'
-    testImplementation 'com.github.javafaker:javafaker:1.0.1'
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 
-}
+    dependencies {
+        implementation 'junit:junit:4.12'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+        testImplementation 'com.codeborne:selenide:5.19.0'
+        testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+        implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.3.1'
+        testImplementation 'com.github.javafaker:javafaker:1.0.1'
+        testImplementation 'io.qameta.allure:allure-selenide:2.13.3'
 
-test {
-    useJUnitPlatform()
+    }
 
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-}
+    test {
+        useJUnitPlatform()
+
+        systemProperty 'selenide.headless', System.getProperty('selenide.headless')};
